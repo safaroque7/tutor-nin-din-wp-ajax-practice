@@ -31,6 +31,16 @@ get_header();
                     Chattogram</label><br>
                 <label><input type="checkbox" class="filter" data-filter="location" value="Sylhet"> Sylhet</label><br>
             </div>
+
+            <br>
+            <div class="bg-white p-md-3 p-1">
+                <h3>Find University</h3>
+                <label> <input type="checkbox" class="filterForUniversity" value="Dhaka University"> Dhaka University </label> <br>
+                <label> <input type="checkbox" class="filterForUniversity" value="Jogonnath University"> Jogonnath University </label> <br>
+
+
+            </div>
+
         </div>
 
         <div class="col-md-8">
@@ -38,7 +48,19 @@ get_header();
                 <h5>Results:</h5>
                 <div id="results">Loading...</div>
             </div>
+
+            <br>
+            <div class="bg-white p-md-3 p-1">
+                <h5> Results: </h5>
+                <div id="resultForUniversity">
+                    loading...
+                </div>
+            </div>
         </div>
+
+
+
+
     </div>
 </div>
 
@@ -75,9 +97,9 @@ get_header();
     //for more value collected
     //********************* 1 */
     $(document).on('change', '.filter', function () {
-        let selectedValues =    $('.filter:checked').map(function () {
-                                    return $(this).val();
-                                }).get();
+        let selectedValues = $('.filter:checked').map(function () {
+            return $(this).val();
+        }).get();
 
         //joing array to string for display
         $('#results').html('Selected: ' + selectedValues.join(', '));
@@ -86,17 +108,17 @@ get_header();
         //AJAX PART
         //********************* 2 */
         $.ajax({
-            url: 'your-server-endpoint.php',  // server URL
+            url: 'your-server-endpoint.php', // server URL
             type: 'POST',
             data: {
-                filters: selectedValues  // send array
+                filters: selectedValues // send array
             },
-            success: function(response) {
+            success: function (response) {
                 // response handle
                 console.log('Server response:', response);
                 $('#results').append('<br>Server says: ' + response);
             },
-            error: function(err) {
+            error: function (err) {
                 console.error('AJAX error:', err);
             }
         });
@@ -104,6 +126,16 @@ get_header();
     });
 
     // });
+
+
+    $(document).on('change', '.filterForUniversity', function () {
+        let selectedValuesOfUniversity = $('.filterForUniversity:checked').map(function () {
+            return $(this).val();
+        }).get();
+
+        $("#resultForUniversity").html(selectedValuesOfUniversity.join(', '));
+    });
+    
 </script>
 
 
