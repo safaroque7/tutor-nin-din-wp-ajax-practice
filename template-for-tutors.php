@@ -5,6 +5,11 @@ Template Name: Simple Tutors (2 Filters)
 get_header();
 ?>
 
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+
 <style>
     .tutor-card {
         padding: 12px;
@@ -35,8 +40,12 @@ get_header();
             <br>
             <div class="bg-white p-md-3 p-1">
                 <h3>Find University</h3>
-                <label> <input type="checkbox" class="filterForUniversity" value="Dhaka University"> Dhaka University </label> <br>
-                <label> <input type="checkbox" class="filterForUniversity" value="Jogonnath University"> Jogonnath University </label> <br>
+                <label> <input type="checkbox" class="filterForUniversity" value="Dhaka University"> Dhaka University
+                </label> <br>
+                <label> <input type="checkbox" class="filterForUniversity" value="Jogonnath University"> Jogonnath
+                    University </label> <br>
+                <label> <input type="checkbox" class="filterForUniversity" value="Rajshahi University"> Rajshahi
+                    University </label> <br>
 
 
             </div>
@@ -56,6 +65,45 @@ get_header();
                     loading...
                 </div>
             </div>
+
+            <br>
+            <div class="bg-white p-md-3 p-1">
+                <h5> Results: </h5>
+
+
+                <table class="table table-striped" id="tableData">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">First</th>
+                            <th scope="col">Last</th>
+                            <th scope="col">University</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td class="universityName">Dhaka University</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td class="universityName">Jogonnath University</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td class="universityName">Sylhet University</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
         </div>
 
 
@@ -65,7 +113,7 @@ get_header();
 </div>
 
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
 
 <script>
     // ========== for single selected value
@@ -133,10 +181,66 @@ get_header();
             return $(this).val();
         }).get();
 
-        $("#resultForUniversity").html(selectedValuesOfUniversity.join(', '));
+        // === Table Row Filter ===
+        $('#tableData tr').each(function(){
+
+            let rowValue = $(this).find('.universityName').text().trim();
+
+            if(selectedValuesOfUniversity.length === 0){
+                $(this).show();
+            } else if(selectedValuesOfUniversity.includes(rowValue)){
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+
+        });
+
+        // condition # 1 
+        // if(selectedValuesOfUniversity.includes('Dhaka University')){
+        //     $('#resultForUniversity').html('Selected Dhaka University');
+        // }
+
+        // condition # 2 
+        // if(selectedValuesOfUniversity.length > 1 ){
+        //     $('#resultForUniversity').html('You can not select more than one item');
+        // }
+
+        // $("#resultForUniversity").html(selectedValuesOfUniversity.join(', '));
     });
-    
 </script>
+
+
+
+<!-- <script>
+    $(document).ready(function () {
+
+        // Initialize DataTable
+        let table = $('#tableData').DataTable();
+
+        $(document).on('change', '.filterForUniversity', function () {
+
+            let selectedValues = $('.filterForUniversity:checked')
+                .map(function () {
+                    return $(this).val();
+                }).get();
+
+            table.rows().every(function () {
+                let rowNode = this.node();
+                let rowText = $(rowNode).find('.universityName').text().trim();
+
+                if (selectedValues.length === 0 || selectedValues.includes(rowText)) {
+                    $(rowNode).show(); // show this row
+                } else {
+                    $(rowNode).hide(); // hide this row
+                }
+            });
+
+            table.draw(); // 🔥 VERY IMPORTANT
+        });
+
+    });
+</script> -->
 
 
 
