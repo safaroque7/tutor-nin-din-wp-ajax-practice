@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Simple Tutors (2 Filters)
+Template Name: Simple Tutors 1 (2 Filters)
 */
 get_header();
 ?>
@@ -20,6 +20,11 @@ get_header();
 </style>
 
 <div class="container my-4">
+    <div class="row">
+        <div class="col-12">
+            <h2> Tutor 1 </h2>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-4">
             <div class="bg-white p-md-3 p-1">
@@ -105,10 +110,6 @@ get_header();
 
             </div>
         </div>
-
-
-
-
     </div>
 </div>
 
@@ -145,6 +146,7 @@ get_header();
     //for more value collected
     //********************* 1 */
     $(document).on('change', '.filter', function () {
+
         let selectedValues = $('.filter:checked').map(function () {
             return $(this).val();
         }).get();
@@ -155,21 +157,21 @@ get_header();
 
         //AJAX PART
         //********************* 2 */
-        $.ajax({
-            url: 'your-server-endpoint.php', // server URL
-            type: 'POST',
-            data: {
-                filters: selectedValues // send array
-            },
-            success: function (response) {
-                // response handle
-                console.log('Server response:', response);
-                $('#results').append('<br>Server says: ' + response);
-            },
-            error: function (err) {
-                console.error('AJAX error:', err);
-            }
-        });
+        // $.ajax({
+        //     url: 'your-server-endpoint.php', // server URL
+        //     type: 'POST',
+        //     data: {
+        //         filters: selectedValues // send array
+        //     },
+        //     success: function (response) {
+        //         // response handle
+        //         console.log('Server response:', response);
+        //         $('#results').append('<br>Server says: ' + response);
+        //     },
+        //     error: function (err) {
+        //         console.error('AJAX error:', err);
+        //     }
+        // });
 
     });
 
@@ -177,18 +179,19 @@ get_header();
 
 
     $(document).on('change', '.filterForUniversity', function () {
+
         let selectedValuesOfUniversity = $('.filterForUniversity:checked').map(function () {
             return $(this).val();
         }).get();
 
         // === Table Row Filter ===
-        $('#tableData tr').each(function(){
+        $('#tableData tr').each(function () {
 
             let rowValue = $(this).find('.universityName').text().trim();
 
-            if(selectedValuesOfUniversity.length === 0){
+            if (selectedValuesOfUniversity.length === 0) {
                 $(this).show();
-            } else if(selectedValuesOfUniversity.includes(rowValue)){
+            } else if (selectedValuesOfUniversity.includes(rowValue)) {
                 $(this).show();
             } else {
                 $(this).hide();
