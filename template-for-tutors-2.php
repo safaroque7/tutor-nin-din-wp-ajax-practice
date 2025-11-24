@@ -22,7 +22,7 @@ get_header();
 <div class="container my-4">
     <div class="row">
         <div class="col-12">
-            <h2> Tutor 2 </h2>
+            <h2> <?php the_title();?> </h2>
         </div>
     </div>
     <div class="row">
